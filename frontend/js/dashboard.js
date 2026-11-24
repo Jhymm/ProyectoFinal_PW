@@ -104,6 +104,20 @@ function initHuancayoMap() {
       center: huancayoCenter,
       zoom: 13,
       zoomControl: true,
+      scrollWheelZoom: false, // Deshabilitado inicialmente para evitar secuestro de scroll táctil en móvil
+    });
+
+    // Habilitar zoom por rueda solo cuando el usuario interactúe explícitamente con el mapa
+    mapElement.addEventListener('click', () => {
+      if (leafletMap && !leafletMap.scrollWheelZoom.enabled()) {
+        leafletMap.scrollWheelZoom.enable();
+      }
+    });
+
+    mapElement.addEventListener('mouseleave', () => {
+      if (leafletMap && leafletMap.scrollWheelZoom.enabled()) {
+        leafletMap.scrollWheelZoom.disable();
+      }
     });
 
     // Capa de mosaico topográfico/urbano de alta legibilidad

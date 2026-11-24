@@ -110,6 +110,7 @@ textarea:focus-visible,
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .brand-wrapper {
@@ -118,6 +119,7 @@ textarea:focus-visible,
   gap: 0.75rem;
   text-decoration: none;
   color: inherit;
+  flex-shrink: 0;
 }
 
 .brand-logo-icon {
@@ -129,6 +131,7 @@ textarea:focus-visible,
   place-items: center;
   color: #fff;
   box-shadow: 0 4px 10px rgba(4, 120, 87, 0.25);
+  flex-shrink: 0;
 }
 
 .brand-text-group {
@@ -164,7 +167,12 @@ textarea:focus-visible,
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--eco-forest-800);
+  white-space: nowrap;
 }
+
+/* Textos adaptables según viewport */
+.badge-long-text { display: inline; }
+.badge-short-text { display: none; }
 
 .pulsing-dot {
   width: 10px;
@@ -172,6 +180,7 @@ textarea:focus-visible,
   background: var(--eco-emerald-500);
   border-radius: 50%;
   position: relative;
+  flex-shrink: 0;
 }
 
 .pulsing-dot::after {
@@ -197,6 +206,7 @@ textarea:focus-visible,
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .view-toggle-nav {
@@ -218,11 +228,16 @@ textarea:focus-visible,
   color: var(--eco-slate-700);
   cursor: pointer;
   transition: all 0.2s ease;
-  min-height: 38px;
+  min-height: 40px;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.4rem;
+  white-space: nowrap;
 }
+
+.nav-btn-text-full { display: inline; }
+.nav-btn-text-short { display: none; }
 
 .nav-pill-btn.active {
   background: var(--eco-bg-surface);
@@ -233,6 +248,7 @@ textarea:focus-visible,
 .btn-auth {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.4rem;
   padding: 0.5rem 1.1rem;
   background: var(--eco-forest-900);
@@ -245,7 +261,11 @@ textarea:focus-visible,
   cursor: pointer;
   transition: all 0.2s ease;
   min-height: 42px;
+  white-space: nowrap;
 }
+
+.auth-btn-text-full { display: inline; }
+.auth-btn-text-short { display: none; }
 
 .btn-auth:hover {
   background: var(--eco-green-700);
@@ -266,8 +286,20 @@ textarea:focus-visible,
   display: none;
 }
 
+@keyframes viewFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .module-section.active-view {
   display: block;
+  animation: viewFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ==============================================================================
@@ -624,7 +656,7 @@ textarea:focus-visible,
 /* Tarjetas de Métricas (KPIs) */
 .kpi-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.25rem;
 }
 
@@ -927,14 +959,18 @@ textarea:focus-visible,
   background: #fff;
   border: 1.5px solid var(--eco-green-700);
   color: var(--eco-green-700);
-  padding: 0.4rem 0.85rem;
+  padding: 0.5rem 0.95rem;
   border-radius: var(--radius-md);
   font-family: inherit;
   font-size: 0.8125rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
-  min-height: 36px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
 }
 
 .btn-action-table:hover {
@@ -959,8 +995,19 @@ textarea:focus-visible,
   padding: 1rem;
 }
 
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(14px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 .modal-overlay.modal-active {
   display: grid;
+  animation: modalFadeIn 0.2s ease-out;
 }
 
 .modal-content {
@@ -973,6 +1020,10 @@ textarea:focus-visible,
   position: relative;
   max-height: 90vh;
   overflow-y: auto;
+}
+
+.modal-overlay.modal-active .modal-content {
+  animation: modalSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .modal-header {
@@ -1049,4 +1100,240 @@ textarea:focus-visible,
 
 .btn-primary:hover {
   background: var(--eco-green-700);
+}
+
+/* Botón para Copiar Código de Seguimiento */
+.btn-copy-code {
+  background: #fff;
+  border: 1.5px solid var(--eco-forest-800);
+  color: var(--eco-forest-900);
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.825rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.btn-copy-code:hover {
+  background: var(--eco-mint-100);
+  border-color: var(--eco-green-700);
+}
+
+/* ==============================================================================
+   DISEÑO RESPONSIVO MULTIPLATAFORMA (MOBILE, TABLET Y DESKTOP)
+   Cumple directrices WCAG 2.1 AA/AAA y estándares ergonómicos táctiles
+   ============================================================================== */
+
+/* --- 1. Laptops y Pantallas Medianas (<= 1024px) --- */
+@media (max-width: 1024px) {
+  .main-wrapper {
+    padding: 1.25rem 1rem 2.5rem;
+  }
+
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .desktop-main-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* --- 2. Tablets y Móviles en Horizontal (<= 768px) --- */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 0.75rem 1rem;
+    gap: 0.75rem;
+  }
+
+  /* Badge ambiental compacto */
+  .badge-long-text { display: none; }
+  .badge-short-text { display: inline; }
+  .env-status-badge {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.75rem;
+  }
+
+  .dash-title {
+    font-size: 1.45rem;
+  }
+
+  .dash-subtitle {
+    font-size: 0.875rem;
+  }
+
+  .map-container-box {
+    height: 340px;
+  }
+
+  .table-toolbar {
+    gap: 0.6rem;
+  }
+}
+
+/* --- 3. Móviles Estándar (<= 640px) --- */
+@media (max-width: 640px) {
+  .header-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+  }
+
+  .header-actions {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .view-toggle-nav {
+    flex: 1;
+  }
+
+  .nav-pill-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 0.45rem 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  /* Textos compactos en botones */
+  .nav-btn-text-full { display: none; }
+  .nav-btn-text-short { display: inline; }
+  .auth-btn-text-full { display: none; }
+  .auth-btn-text-short { display: inline; }
+
+  .btn-auth {
+    padding: 0.5rem 0.85rem;
+    font-size: 0.8rem;
+  }
+
+  /* Dashboard Header */
+  .dashboard-header-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .dashboard-header-bar .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Toolbar de la tabla */
+  .table-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input-wrapper {
+    min-width: 100%;
+    width: 100%;
+  }
+
+  .filter-select {
+    width: 100%;
+  }
+
+  /* Modales optimizados para móvil */
+  .modal-content {
+    padding: 1.25rem 1rem;
+    width: 95%;
+    max-height: 92vh;
+  }
+
+  .modal-footer {
+    flex-direction: column-reverse;
+    gap: 0.6rem;
+  }
+
+  .modal-footer .btn-secondary,
+  .modal-footer .btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* --- 4. Móviles Estrechos y Teléfonos Compactos (<= 480px) --- */
+@media (max-width: 480px) {
+  .citizen-hero-card {
+    padding: 1.25rem 1rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 1rem;
+  }
+
+  .citizen-hero-title {
+    font-size: 1.35rem;
+  }
+
+  .citizen-hero-desc {
+    font-size: 0.875rem;
+  }
+
+  .alert-form-card {
+    padding: 1.2rem 0.95rem;
+    border-radius: var(--radius-md);
+  }
+
+  /* Ubicación manual en 1 sola columna cómoda para tipear */
+  .manual-location-inputs {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  /* KPIs en columna única */
+  .kpi-grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .kpi-value {
+    font-size: 1.85rem;
+  }
+
+  /* Ajuste de mapa para no secuestrar pantalla vertical */
+  .map-container-box {
+    height: 300px;
+  }
+
+  .gps-info-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .waste-card-option {
+    padding: 0.6rem 0.5rem;
+    gap: 0.45rem;
+    min-height: 54px;
+  }
+
+  .waste-text {
+    font-size: 0.775rem;
+  }
+
+  .btn-submit-report {
+    font-size: 0.95rem;
+  }
+}
+
+/* --- 5. Pantallas Ultra-Estrechas (<= 380px) --- */
+@media (max-width: 380px) {
+  .waste-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-title {
+    font-size: 1.15rem;
+  }
+
+  .brand-subtitle {
+    font-size: 0.68rem;
+  }
 }

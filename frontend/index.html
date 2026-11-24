@@ -41,17 +41,22 @@
       <!-- Badge de Estado Ambiental Activo -->
       <div class="env-status-badge" role="status" aria-live="polite">
         <span class="pulsing-dot" aria-hidden="true"></span>
-        <span>Monitoreo Ambiental Activo • Valle del Mantaro</span>
+        <span class="badge-long-text">Monitoreo Ambiental Activo • Valle del Mantaro</span>
+        <span class="badge-short-text">Monitoreo Activo</span>
       </div>
 
       <!-- Acciones de Navegación y Switch de Vistas -->
       <div class="header-actions">
         <nav class="view-toggle-nav" aria-label="Selector de módulo de la plataforma">
           <button id="toggle-citizen-view" class="nav-pill-btn active" aria-pressed="true">
-            <span aria-hidden="true">📱</span> Vista Ciudadano
+            <span aria-hidden="true">📱</span>
+            <span class="nav-btn-text-full">Vista Ciudadano</span>
+            <span class="nav-btn-text-short">Ciudadano</span>
           </button>
           <button id="toggle-dashboard-view" class="nav-pill-btn" aria-pressed="false">
-            <span aria-hidden="true">🖥️</span> Panel Fiscalización
+            <span aria-hidden="true">🖥️</span>
+            <span class="nav-btn-text-full">Panel Fiscalización</span>
+            <span class="nav-btn-text-short">Fiscalía</span>
           </button>
         </nav>
 
@@ -60,7 +65,8 @@
             <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
             <circle cx="12" cy="7" r="4"/>
           </svg>
-          <span>Acceso Fiscalizador</span>
+          <span class="auth-btn-text-full">Acceso Fiscalizador</span>
+          <span class="auth-btn-text-short">Acceso</span>
         </button>
       </div>
 
@@ -394,9 +400,12 @@
         <p style="font-size: 0.9rem; color: var(--eco-slate-700); margin: 0.5rem 0 1rem;">
           Tu alerta ha sido derivada inmediatamente a la brigada de fiscalización ambiental. Puedes realizar seguimiento con el código:
         </p>
-        <div style="padding: 0.85rem; background: var(--eco-mint-50); border: 2px dashed var(--eco-forest-800); border-radius: var(--radius-md); margin-bottom: 1rem;">
+        <div style="padding: 0.85rem; background: var(--eco-mint-50); border: 2px dashed var(--eco-forest-800); border-radius: var(--radius-md); margin-bottom: 1rem; text-align: center;">
           <span style="font-size: 0.8rem; text-transform: uppercase; color: var(--eco-slate-500); display: block; font-weight: 700;">Código de Seguimiento</span>
-          <span id="modal-report-code" style="font-family: monospace; font-size: 1.5rem; font-weight: 800; color: var(--eco-forest-900);">ECO-HYO-1001</span>
+          <span id="modal-report-code" style="font-family: monospace; font-size: 1.5rem; font-weight: 800; color: var(--eco-forest-900); display: block; margin: 4px 0;">ECO-HYO-1001</span>
+          <button type="button" id="btn-copy-code" class="btn-copy-code" aria-label="Copiar código al portapapeles">
+            <span>📋 Copiar Código</span>
+          </button>
         </div>
       </div>
       <div class="modal-footer" style="justify-content: center;">
@@ -624,7 +633,8 @@
               <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
               <circle cx="12" cy="7" r="4"/>
             </svg>
-            <span>Acceso Fiscalizador</span>
+            <span class="auth-btn-text-full">Acceso Fiscalizador</span>
+            <span class="auth-btn-text-short">Acceso</span>
           `;
           btnLoginHeader.style.background = 'var(--eco-forest-900)';
         }

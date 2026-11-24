@@ -27,6 +27,32 @@ export function initCitizenModule() {
   const modalSuccess = document.getElementById('modal-report-success');
   const modalCodeDisplay = document.getElementById('modal-report-code');
   const btnCloseSuccessModal = document.getElementById('btn-close-success');
+  const btnCopyCode = document.getElementById('btn-copy-code');
+
+  // Copiar código de seguimiento al portapapeles
+  btnCopyCode?.addEventListener('click', async () => {
+    const code = modalCodeDisplay?.textContent?.trim() || '';
+    if (!code) return;
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(code);
+      } else {
+        // Fallback para navegadores antiguos
+        const tempInput = document.createElement('input');
+        tempInput.value = code;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+      }
+      btnCopyCode.innerHTML = '<span>✅ ¡Copiado con Éxito!</span>';
+      setTimeout(() => {
+        btnCopyCode.innerHTML = '<span>📋 Copiar Código</span>';
+      }, 2200);
+    } catch (err) {
+      console.warn('Fallo al copiar código al portapapeles:', err);
+    }
+  });
 
   // 1. Geolocalización GPS
   btnGps?.addEventListener('click', () => {
