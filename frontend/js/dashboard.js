@@ -174,52 +174,53 @@ function renderMapMarkers(incidentes) {
   incidentMarkers = [];
 
   incidentes.forEach((inc) => {
-    let colorHex = '#D97706'; // Pendiente (ámbar)
+    let colorHex = '#F59E0B'; // Pendiente (ámbar vibrante)
     let labelEstado = inc.estado;
 
     if (inc.estado === 'Resuelto') {
-      colorHex = '#059669'; // Verde
+      colorHex = '#10B981'; // Esmeralda vibrante
     } else if (inc.estado === 'En proceso') {
-      colorHex = '#2563EB'; // Azul
+      colorHex = '#3B82F6'; // Azul eléctrico
     } else if (inc.gravedad === 'Crítica' || inc.gravedad === 'Alta') {
-      colorHex = '#DC2626'; // Rojo crítico
+      colorHex = '#EF4444'; // Rubí/Coral de alta atención
     }
 
-    // Crear icono SVG personalizado
+    // Crear icono SVG personalizado con halo luminoso
     const customIcon = L.divIcon({
       className: 'custom-eco-marker',
       html: `
         <div style="
-          width: 30px;
-          height: 30px;
-          background-color: ${colorHex};
+          width: 32px;
+          height: 32px;
+          background: ${colorHex};
           border: 2.5px solid #ffffff;
           border-radius: 50%;
-          box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+          box-shadow: 0 4px 12px ${colorHex}88, 0 0 0 3px ${colorHex}33;
           display: flex;
           align-items: center;
           justify-content: center;
           color: white;
-          font-size: 13px;
+          font-size: 14px;
           font-weight: 800;
+          transition: transform 0.2s ease;
         ">
           ${inc.gravedad === 'Crítica' ? '⚠️' : '📍'}
         </div>
       `,
-      iconSize: [30, 30],
-      iconAnchor: [15, 15],
-      popupAnchor: [0, -15],
+      iconSize: [32, 32],
+      iconAnchor: [16, 16],
+      popupAnchor: [0, -16],
     });
 
     const marker = L.marker([inc.latitud, inc.longitud], { icon: customIcon });
 
     const popupHtml = `
-      <div style="font-family: 'Plus Jakarta Sans', sans-serif; min-width: 200px; max-width: 260px;">
-        <span style="font-family: monospace; font-weight: 800; color: #064E3B; font-size: 12px;">${inc.codigoAlerta}</span>
-        <h4 style="font-size: 14px; font-weight: 700; margin: 4px 0; color: #0F172A;">${inc.tipoResiduo}</h4>
-        <p style="font-size: 12px; color: #64748B; margin-bottom: 6px;">📍 ${inc.direccionReferencia} (${inc.distrito})</p>
-        <span style="display: inline-block; padding: 2px 8px; border-radius: 9999px; font-size: 11px; font-weight: 700; background: ${colorHex}22; color: ${colorHex};">
-          ${labelEstado} • Gravedad ${inc.gravedad}
+      <div style="font-family: 'Plus Jakarta Sans', sans-serif; min-width: 210px; max-width: 270px; padding: 4px;">
+        <span style="font-family: monospace; font-weight: 800; color: #064E3B; font-size: 12px; background: #ECFDF5; padding: 2px 6px; border-radius: 4px; border: 1px solid #A7F3D0;">${inc.codigoAlerta}</span>
+        <h4 style="font-size: 14px; font-weight: 800; margin: 6px 0 3px; color: #0F172A;">${inc.tipoResiduo}</h4>
+        <p style="font-size: 12px; color: #64748B; margin-bottom: 8px;">📍 ${inc.direccionReferencia} (${inc.distrito})</p>
+        <span style="display: inline-block; padding: 3px 10px; border-radius: 9999px; font-size: 11px; font-weight: 800; background: ${colorHex}22; color: ${colorHex}; border: 1px solid ${colorHex}55;">
+          ● ${labelEstado} • Gravedad ${inc.gravedad}
         </span>
       </div>
     `;

@@ -400,9 +400,9 @@
         <p style="font-size: 0.9rem; color: var(--eco-slate-700); margin: 0.5rem 0 1rem;">
           Tu alerta ha sido derivada inmediatamente a la brigada de fiscalización ambiental. Puedes realizar seguimiento con el código:
         </p>
-        <div style="padding: 0.85rem; background: var(--eco-mint-50); border: 2px dashed var(--eco-forest-800); border-radius: var(--radius-md); margin-bottom: 1rem; text-align: center;">
-          <span style="font-size: 0.8rem; text-transform: uppercase; color: var(--eco-slate-500); display: block; font-weight: 700;">Código de Seguimiento</span>
-          <span id="modal-report-code" style="font-family: monospace; font-size: 1.5rem; font-weight: 800; color: var(--eco-forest-900); display: block; margin: 4px 0;">ECO-HYO-1001</span>
+        <div style="padding: 1.1rem; background: linear-gradient(135deg, #ECFDF5 0%, #F0FDFA 100%); border: 2px dashed var(--eco-emerald-400); border-radius: var(--radius-lg); margin-bottom: 1.25rem; text-align: center; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15);">
+          <span style="font-size: 0.8rem; text-transform: uppercase; color: var(--eco-teal-500); display: block; font-weight: 800; letter-spacing: 0.05em;">Código de Seguimiento</span>
+          <span id="modal-report-code" style="font-family: monospace; font-size: 1.6rem; font-weight: 800; color: var(--eco-forest-900); display: block; margin: 6px 0;">ECO-HYO-1001</span>
           <button type="button" id="btn-copy-code" class="btn-copy-code" aria-label="Copiar código al portapapeles">
             <span>📋 Copiar Código</span>
           </button>
@@ -626,7 +626,7 @@
             <span>👤 ${user.email.split('@')[0]}</span>
             <span style="font-size: 11px; opacity: 0.85; margin-left: 4px;">(Salir)</span>
           `;
-          btnLoginHeader.style.background = 'var(--eco-forest-800)';
+          btnLoginHeader.style.background = 'var(--gradient-cta)';
         } else {
           btnLoginHeader.innerHTML = `
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -636,7 +636,7 @@
             <span class="auth-btn-text-full">Acceso Fiscalizador</span>
             <span class="auth-btn-text-short">Acceso</span>
           `;
-          btnLoginHeader.style.background = 'var(--eco-forest-900)';
+          btnLoginHeader.style.background = 'var(--gradient-dark)';
         }
       }
 

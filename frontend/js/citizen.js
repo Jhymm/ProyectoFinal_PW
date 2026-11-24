@@ -117,16 +117,16 @@ export function initCitizenModule() {
   // Drag and drop sobre la zona de subida
   photoUploadZone?.addEventListener('dragover', (e) => {
     e.preventDefault();
-    photoUploadZone.style.borderColor = 'var(--eco-green-700)';
+    photoUploadZone.style.borderColor = 'var(--eco-green-600)';
   });
 
   photoUploadZone?.addEventListener('dragleave', () => {
-    photoUploadZone.style.borderColor = 'var(--eco-slate-300)';
+    photoUploadZone.style.borderColor = 'var(--eco-emerald-400)';
   });
 
   photoUploadZone?.addEventListener('drop', (e) => {
     e.preventDefault();
-    photoUploadZone.style.borderColor = 'var(--eco-slate-300)';
+    photoUploadZone.style.borderColor = 'var(--eco-emerald-400)';
     const file = e.dataTransfer?.files?.[0];
     if (file) {
       procesarArchivoImagen(file);
