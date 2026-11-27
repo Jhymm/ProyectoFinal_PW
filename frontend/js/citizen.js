@@ -3,7 +3,7 @@
  * Controlador de geolocalización, evidencia fotográfica y envío de reportes.
  */
 
-import { EcolifeAPI } from './api.js';
+import { EcolifeAPI } from './api.js?v=20261126b';
 
 let fotoEvidenciaBase64 = null;
 let coordsCapturadas = { lat: -12.0653, lng: -75.2049 }; // Huancayo por defecto

@@ -3,7 +3,7 @@
  * Controlador de métricas KPI, mapa topográfico de Huancayo y bandeja de incidentes.
  */
 
-import { EcolifeAPI } from './api.js';
+import { EcolifeAPI } from './api.js?v=20261126b';
 
 let leafletMap = null;
 let incidentMarkers = [];
