@@ -1603,3 +1603,250 @@ textarea:focus-visible,
     font-size: 0.7rem;
   }
 }
+
+/* ==============================================================================
+   MÓDULO 3: GESTIÓN Y PADRÓN DE PERSONAS (CRUD)
+   ============================================================================== */
+
+.personas-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.personas-feedback-banner {
+  padding: 0.9rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-size: 0.925rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  animation: fadeInDown 0.25s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.personas-feedback-banner.feedback-success {
+  background: linear-gradient(135deg, #ECFDF5 0%, #F0FDFA 100%);
+  border: 1.5px solid #6EE7B7;
+  color: var(--eco-forest-900);
+}
+
+.personas-feedback-banner.feedback-error {
+  background: linear-gradient(135deg, #FFF1F2 0%, #FFF5F5 100%);
+  border: 1.5px solid #FDA4AF;
+  color: var(--status-critical-text);
+}
+
+.btn-close-feedback {
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: inherit;
+  opacity: 0.65;
+  cursor: pointer;
+  padding: 0 0.35rem;
+  transition: opacity 0.2s;
+}
+
+.btn-close-feedback:hover {
+  opacity: 1;
+}
+
+.badge-role-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: 0.725rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--eco-mint-100);
+  color: var(--eco-forest-900);
+  border: 1px solid var(--eco-emerald-400);
+}
+
+.code-dni {
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+}
+
+.persona-name-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.persona-name {
+  color: var(--eco-slate-900);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.persona-role-hint {
+  font-size: 0.775rem;
+  color: var(--eco-slate-500);
+}
+
+.persona-date {
+  font-weight: 600;
+  color: var(--eco-slate-700);
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+.age-pill {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  background: var(--eco-slate-100);
+  color: var(--eco-slate-800);
+  font-weight: 700;
+  font-size: 0.8rem;
+  border: 1px solid var(--eco-slate-200);
+}
+
+.table-actions-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.btn-action-edit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  background: #ffffff;
+  border: 1.5px solid var(--eco-slate-300);
+  border-radius: var(--radius-sm);
+  color: var(--eco-slate-800);
+  font-family: inherit;
+  font-size: 0.825rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-action-edit:hover {
+  background: var(--eco-mint-50);
+  border-color: var(--eco-green-600);
+  color: var(--eco-forest-900);
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.2);
+  transform: translateY(-1px);
+}
+
+.btn-action-delete {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  background: #FFF1F2;
+  border: 1.5px solid #FECDD3;
+  border-radius: var(--radius-sm);
+  color: var(--status-critical-text);
+  font-family: inherit;
+  font-size: 0.825rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-action-delete:hover {
+  background: #FFE4E6;
+  border-color: #FDA4AF;
+  color: #9F1239;
+  box-shadow: 0 2px 6px var(--status-critical-glow);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1.5px solid var(--eco-slate-300);
+  color: var(--eco-slate-700);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-ghost:hover {
+  background: var(--eco-slate-100);
+  color: var(--eco-slate-900);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #E11D48 0%, #BE123C 100%);
+  color: #ffffff;
+  border: none;
+  padding: 0.6rem 1.35rem;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 0.925rem;
+  font-weight: 800;
+  cursor: pointer;
+  min-height: 44px;
+  box-shadow: 0 4px 14px var(--status-critical-glow);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #BE123C 0%, #9F1239 100%);
+  box-shadow: 0 6px 20px rgba(190, 18, 60, 0.45);
+  transform: translateY(-1px);
+}
+
+.table-state-cell {
+  text-align: center;
+  padding: 3rem 1.5rem !important;
+  color: var(--eco-slate-600);
+}
+
+.table-error-cell {
+  background: linear-gradient(180deg, #FFF1F2 0%, #FFFFFF 100%);
+}
+
+.personas-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3.5px solid var(--eco-slate-200);
+  border-top-color: var(--eco-emerald-500);
+  border-radius: 50%;
+  animation: personasSpin 0.75s linear infinite;
+  margin: 0 auto 0.75rem auto;
+}
+
+@keyframes personasSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.form-help-text {
+  font-size: 0.775rem;
+  color: var(--eco-slate-500);
+  margin-top: 0.3rem;
+  display: block;
+}

@@ -58,6 +58,11 @@
             <span class="nav-btn-text-full">Panel Fiscalización</span>
             <span class="nav-btn-text-short">Fiscalía</span>
           </button>
+          <button id="toggle-personas-view" class="nav-pill-btn" aria-pressed="false">
+            <span aria-hidden="true">👥</span>
+            <span class="nav-btn-text-full">Directorio Personas</span>
+            <span class="nav-btn-text-short">Personas</span>
+          </button>
         </nav>
 
         <button class="btn-auth" id="btn-login-header" aria-label="Acceso institucional o inicio de sesión">
@@ -381,6 +386,121 @@
       </div>
     </section>
 
+    <!-- ============================================================================
+         MÓDULO 3: GESTIÓN Y PADRÓN DE PERSONAS (CRUD COMPLETO)
+         ============================================================================ -->
+    <section id="view-personas" class="module-section" aria-labelledby="heading-personas">
+      <div class="personas-container">
+
+        <!-- Barra Superior del Directorio de Personas -->
+        <div class="dashboard-header-bar">
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.25rem;">
+              <span class="badge-role-pill">Padrón Institucional</span>
+              <span class="code-badge">SQL Server: EjercicioDB</span>
+            </div>
+            <h1 id="heading-personas" class="dash-title">Directorio Cívico de Personas</h1>
+            <p class="dash-subtitle">Padrón de ciudadanos y colaboradores vinculados al programa ambiental de Huancayo.</p>
+          </div>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <button id="btn-refresh-personas" class="btn-secondary" aria-label="Recargar lista de personas">
+              <span aria-hidden="true">🔄</span> Recargar Padrón
+            </button>
+            <button id="btn-new-persona" class="btn-primary" aria-label="Registrar nueva persona">
+              <span aria-hidden="true">➕</span> Nueva Persona
+            </button>
+          </div>
+        </div>
+
+        <!-- Banner de Feedback y Notificaciones -->
+        <div id="personas-feedback-banner" class="personas-feedback-banner" role="status" aria-live="polite" style="display: none;"></div>
+
+        <!-- Tarjetas de Métricas (KPIs de Personas) -->
+        <div class="kpi-grid" role="region" aria-label="Estadísticas del Padrón de Personas">
+          <div class="kpi-card kpi-total">
+            <div class="kpi-header">
+              <span class="kpi-label">Total Personas Registradas</span>
+              <div class="kpi-icon-badge" aria-hidden="true">👥</div>
+            </div>
+            <span id="kpi-total-personas" class="kpi-value">--</span>
+            <span class="kpi-meta">Almacenadas en Microsoft SQL Server</span>
+          </div>
+
+          <div class="kpi-card kpi-resolved">
+            <div class="kpi-header">
+              <span class="kpi-label">Conexión Backend</span>
+              <div class="kpi-icon-badge" aria-hidden="true">⚡</div>
+            </div>
+            <span class="kpi-value" style="font-size: 1.55rem; color: var(--eco-green-700);">FastAPI 0.162</span>
+            <span class="kpi-meta">Endpoints REST /personas activos</span>
+          </div>
+
+          <div class="kpi-card kpi-time">
+            <div class="kpi-header">
+              <span class="kpi-label">Validación de DNI</span>
+              <div class="kpi-icon-badge" aria-hidden="true">🪪</div>
+            </div>
+            <span class="kpi-value" style="font-size: 1.55rem; color: var(--eco-teal-500);">8 Dígitos</span>
+            <span class="kpi-meta">Estándar nacional RENIEC</span>
+          </div>
+        </div>
+
+        <!-- Tabla y Barra de Herramientas -->
+        <div class="table-card-wrapper" role="region" aria-labelledby="heading-personas-table">
+          <div class="card-title-group" style="margin-bottom: 1rem;">
+            <h2 id="heading-personas-table" class="card-heading">Padrón de Personas</h2>
+            <span class="code-badge">CRUD Habilitado</span>
+          </div>
+
+          <!-- Barra de Búsqueda y Filtros -->
+          <div class="table-toolbar" style="margin-bottom: 1.25rem;">
+            <div class="search-input-wrapper" style="flex: 1; max-width: 480px;">
+              <span class="search-icon" aria-hidden="true">🔍</span>
+              <input
+                type="text"
+                id="personas-search-input"
+                class="search-input"
+                placeholder="Buscar por DNI o nombre..."
+                aria-label="Buscar persona por DNI o nombre"
+              >
+            </div>
+            <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+              <button id="btn-search-dni" class="btn-secondary" style="padding: 0.6rem 1rem;" title="Buscar en la API por DNI exacto">
+                <span>Buscar DNI en API</span>
+              </button>
+              <button id="btn-reset-personas-search" class="btn-ghost" style="padding: 0.6rem 0.85rem;" title="Restablecer búsqueda">
+                <span>Limpiar</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Contenedor de la Tabla -->
+          <div class="table-responsive">
+            <table class="incident-table personas-table" aria-label="Tabla de personas registradas">
+              <thead>
+                <tr>
+                  <th scope="col" style="width: 140px;">DNI</th>
+                  <th scope="col">Nombre Completo</th>
+                  <th scope="col" style="width: 180px;">Fecha de Nacimiento</th>
+                  <th scope="col" style="width: 150px;">Edad Estimada</th>
+                  <th scope="col" style="text-align: right; width: 190px;">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="personas-table-body">
+                <tr>
+                  <td colspan="5" class="table-state-cell">
+                    <div class="personas-spinner" aria-hidden="true"></div>
+                    <span>Cargando personas desde la base de datos...</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
   <!-- ==============================================================================
@@ -507,25 +627,129 @@
     </div>
   </div>
 
+  <!-- ==============================================================================
+       MODAL 4: CREACIÓN Y EDICIÓN DE PERSONA (CRUD)
+       ============================================================================== -->
+  <div id="modal-persona-form" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-persona-title">
+    <div class="modal-content" style="max-width: 500px;">
+      <div class="modal-header">
+        <div>
+          <h2 id="modal-persona-title" class="modal-title">Registrar Nueva Persona</h2>
+          <p id="modal-persona-subtitle" style="font-size: 0.85rem; color: var(--eco-slate-500); margin-top: 2px;">
+            Ingresa los datos para registrar un nuevo ciudadano en el padrón.
+          </p>
+        </div>
+        <button id="btn-close-persona-modal" class="btn-close-modal" aria-label="Cerrar modal de persona">&times;</button>
+      </div>
+
+      <form id="form-persona" novalidate>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="persona-dni">
+              Documento Nacional de Identidad (DNI): <span style="color: var(--status-critical-text);">*</span>
+            </label>
+            <input
+              type="text"
+              id="persona-dni"
+              class="input-text"
+              placeholder="Ej: 12345678"
+              maxlength="8"
+              pattern="[0-9]{8}"
+              inputmode="numeric"
+              required
+            >
+            <span id="persona-dni-help" class="form-help-text">Documento Nacional de Identidad de 8 dígitos numéricos.</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="persona-nombre">
+              Nombre Completo: <span style="color: var(--status-critical-text);">*</span>
+            </label>
+            <input
+              type="text"
+              id="persona-nombre"
+              class="input-text"
+              placeholder="Ej: Ana Torres Mendoza"
+              maxlength="100"
+              required
+            >
+            <span class="form-help-text">Nombres y apellidos (entre 1 y 100 caracteres).</span>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 0.5rem;">
+            <label class="form-label" for="persona-fecha-nac">
+              Fecha de Nacimiento: <span style="color: var(--status-critical-text);">*</span>
+            </label>
+            <input
+              type="date"
+              id="persona-fecha-nac"
+              class="input-text"
+              required
+            >
+            <span class="form-help-text">Formato estándar AAAA-MM-DD.</span>
+          </div>
+
+          <div id="modal-persona-error" style="display: none; padding: 0.75rem 1rem; background: var(--status-critical-bg); color: var(--status-critical-text); border: 1.5px solid var(--status-critical-border); border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 600; margin-top: 0.75rem;"></div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="btn-cancel-persona-modal" class="btn-secondary">Cancelar</button>
+          <button type="submit" id="btn-submit-persona" class="btn-primary">
+            <span>➕ Registrar Persona</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==============================================================================
+       MODAL 5: CONFIRMACIÓN DE ELIMINACIÓN DE PERSONA
+       ============================================================================== -->
+  <div id="modal-persona-delete" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-delete-title">
+    <div class="modal-content" style="max-width: 460px;">
+      <div class="modal-header">
+        <h2 id="modal-delete-title" class="modal-title" style="color: var(--status-critical-text);">Confirmar Eliminación</h2>
+        <button id="btn-close-delete-persona-modal" class="btn-close-modal" aria-label="Cerrar modal">&times;</button>
+      </div>
+      <div class="modal-body" style="text-align: center; padding: 1.5rem 1rem;">
+        <div style="font-size: 2.75rem; margin-bottom: 0.5rem;" aria-hidden="true">🗑️</div>
+        <p style="font-size: 1rem; color: var(--eco-slate-900); font-weight: 700;">
+          ¿Estás seguro de eliminar este registro del padrón?
+        </p>
+        <p style="font-size: 0.875rem; color: var(--eco-slate-600); margin: 0.5rem 0 1.25rem;">
+          Se eliminará permanentemente a <strong id="delete-persona-name" style="color: var(--eco-slate-900);">--</strong> con DNI <span id="delete-persona-dni" class="code-badge">--</span> de la base de datos SQL Server. Esta acción no se puede deshacer.
+        </p>
+      </div>
+      <div class="modal-footer" style="justify-content: center; gap: 1rem;">
+        <button type="button" id="btn-cancel-delete-persona" class="btn-secondary">Cancelar</button>
+        <button type="button" id="btn-confirm-delete-persona" class="btn-danger">Sí, Eliminar Registro</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Leaflet JS para mapas -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-  <!-- Lógica Modular ES6 -->
+  <!-- Lógica Modular ES6 con Cache-Busting -->
   <script type="module">
-    import { initCitizenModule } from './js/citizen.js';
-    import { initDashboardModule } from './js/dashboard.js';
-    import { EcolifeAPI } from './js/api.js';
+    import { initCitizenModule } from './js/citizen.js?v=20261126b';
+    import { initDashboardModule } from './js/dashboard.js?v=20261126b';
+    import { initPersonasModule, cargarPersonas } from './js/personas.js?v=20261126b';
+    import { EcolifeAPI } from './js/api.js?v=20261126b';
 
     document.addEventListener('DOMContentLoaded', () => {
       // 1. Inicializar Módulos
       initCitizenModule();
       initDashboardModule();
+      initPersonasModule();
 
-      // 2. Control de Alternancia entre Vistas (Ciudadano vs Fiscalizador)
+      // 2. Control de Alternancia entre Vistas (Ciudadano vs Fiscalizador vs Personas)
       const btnCitizenView = document.getElementById('toggle-citizen-view');
       const btnDashboardView = document.getElementById('toggle-dashboard-view');
+      const btnPersonasView = document.getElementById('toggle-personas-view');
       const viewCitizen = document.getElementById('view-citizen');
       const viewDashboard = document.getElementById('view-dashboard');
+      const viewPersonas = document.getElementById('view-personas');
       const btnLoginHeader = document.getElementById('btn-login-header');
 
       // 3. Control de Autenticación con Argon2
@@ -648,28 +872,46 @@
         activarVista('dashboard');
       });
 
+      btnPersonasView?.addEventListener('click', () => {
+        activarVista('personas');
+      });
+
       function activarVista(vista) {
+        // Desactivar todos los botones
+        [btnCitizenView, btnDashboardView, btnPersonasView].forEach((btn) => {
+          if (btn) {
+            btn.classList.remove('active');
+            btn.setAttribute('aria-pressed', 'false');
+          }
+        });
+
+        // Ocultar todas las vistas
+        [viewCitizen, viewDashboard, viewPersonas].forEach((view) => {
+          if (view) {
+            view.classList.remove('active-view');
+          }
+        });
+
         if (vista === 'citizen') {
-          btnCitizenView.classList.add('active');
-          btnCitizenView.setAttribute('aria-pressed', 'true');
-          btnDashboardView.classList.remove('active');
-          btnDashboardView.setAttribute('aria-pressed', 'false');
-
-          viewCitizen.classList.add('active-view');
-          viewDashboard.classList.remove('active-view');
-        } else {
-          btnDashboardView.classList.add('active');
-          btnDashboardView.setAttribute('aria-pressed', 'true');
-          btnCitizenView.classList.remove('active');
-          btnCitizenView.setAttribute('aria-pressed', 'false');
-
-          viewDashboard.classList.add('active-view');
-          viewCitizen.classList.remove('active-view');
+          btnCitizenView?.classList.add('active');
+          btnCitizenView?.setAttribute('aria-pressed', 'true');
+          viewCitizen?.classList.add('active-view');
+        } else if (vista === 'dashboard') {
+          btnDashboardView?.classList.add('active');
+          btnDashboardView?.setAttribute('aria-pressed', 'true');
+          viewDashboard?.classList.add('active-view');
 
           // Forzar refresco de tamaño de Leaflet al hacerse visible
           setTimeout(() => {
             window.dispatchEvent(new Event('resize'));
           }, 150);
+        } else if (vista === 'personas') {
+          btnPersonasView?.classList.add('active');
+          btnPersonasView?.setAttribute('aria-pressed', 'true');
+          viewPersonas?.classList.add('active-view');
+
+          // Recargar el padrón para asegurar sincronía con SQL Server
+          cargarPersonas();
         }
       }
     });

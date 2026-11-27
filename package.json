@@ -2,8 +2,11 @@
   "name": "frontend",
   "version": "0.0.0",
   "scripts": {
+    "start": ".venv\\Scripts\\python.exe -m http.server 3000 -d frontend",
+    "start:frontend": ".venv\\Scripts\\python.exe -m http.server 3000 -d frontend",
+    "start:backend": ".venv\\Scripts\\python.exe -m uvicorn backend.main:app --app-dir src --host 127.0.0.1 --port 8000 --reload",
+    "test:backend": ".venv\\Scripts\\python.exe -m unittest discover -s tests",
     "ng": "ng",
-    "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
